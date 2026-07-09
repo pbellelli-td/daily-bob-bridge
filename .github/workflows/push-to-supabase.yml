@@ -1,1 +1,38 @@
+name: Push Daily BoB data to Supabase
 
+on:
+  push:
+    branches: [main]
+    paths:
+      - "data/accounts.json"
+      - "data/csam_stats.json"
+  workflow_dispatch: {}
+
+jobs:
+  upsert-to-supabase:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Push accounts to Supabase
+        if: hashFiles('data/accounts.json') != ''
+        run: |
+          curl -s -X POST "${{ secrets.SUPABASE_URL }}/rest/v1/daily_bob_accounts" \
+            -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
+            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}" \
+            -H "Content-Type: application/json" \
+            -H "Prefer: resolution=merge-duplicates" \
+            --data-binary @data/accounts.json \
+            -o /dev/null -w "accounts.json push -> HTTP %{http_code}\n" --fail
+
+      - name: Push csam_stats to Supabase
+        if: hashFiles('data/csam_stats.json') != ''
+        run: |
+          curl -s -X POST "${{ secrets.SUPABASE_URL }}/rest/v1/daily_bob_csam_stats" \
+            -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
+            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}" \
+            -H "Content-Type: application/json" \
+            -H "Prefer: resolution=merge-duplicates" \
+            --data-binary @data/csam_stats.json \
+            -o /dev/null -w "csam_stats.json push -> HTTP %{http_code}\n" --fail
