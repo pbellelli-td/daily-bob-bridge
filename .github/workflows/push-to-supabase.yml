@@ -15,6 +15,19 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
+      - name: Delete today's existing accounts rows (prevent stale leftovers)
+        if: hashFiles('data/accounts.json') != ''
+        run: |
+          SNAPSHOT_DATE=$(jq -r '.[0].snapshot_date // empty' data/accounts.json)
+          if [ -z "$SNAPSHOT_DATE" ]; then
+            echo "No snapshot_date found in accounts.json (empty array?) — skipping delete."
+            exit 0
+          fi
+          curl -s -X DELETE "${{ secrets.SUPABASE_URL }}/rest/v1/daily_bob_accounts?snapshot_date=eq.${SNAPSHOT_DATE}" \
+            -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
+            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}" \
+            -o /dev/null -w "delete daily_bob_accounts for ${SNAPSHOT_DATE} -> HTTP %{http_code}\n" --fail
+
       - name: Push accounts to Supabase
         if: hashFiles('data/accounts.json') != ''
         run: |
@@ -25,6 +38,19 @@ jobs:
             -H "Prefer: resolution=merge-duplicates" \
             --data-binary @data/accounts.json \
             -o /dev/null -w "accounts.json push -> HTTP %{http_code}\n" --fail
+
+      - name: Delete today's existing csam_stats rows (prevent stale leftovers)
+        if: hashFiles('data/csam_stats.json') != ''
+        run: |
+          SNAPSHOT_DATE=$(jq -r '.[0].snapshot_date // empty' data/csam_stats.json)
+          if [ -z "$SNAPSHOT_DATE" ]; then
+            echo "No snapshot_date found in csam_stats.json (empty array?) — skipping delete."
+            exit 0
+          fi
+          curl -s -X DELETE "${{ secrets.SUPABASE_URL }}/rest/v1/daily_bob_csam_stats?snapshot_date=eq.${SNAPSHOT_DATE}" \
+            -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
+            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}" \
+            -o /dev/null -w "delete daily_bob_csam_stats for ${SNAPSHOT_DATE} -> HTTP %{http_code}\n" --fail
 
       - name: Push csam_stats to Supabase
         if: hashFiles('data/csam_stats.json') != ''
