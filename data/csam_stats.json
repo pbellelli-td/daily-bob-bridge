@@ -1,2 +1,87 @@
-[]
+[
+  {
+    "snapshot_date": "2026-07-09",
+    "csam": "Julia Seitz",
+    "market": "DACH",
+    "critical_count": 3,
+    "at_risk_count": 5,
+    "watch_count": 13,
+    "arr_at_risk": 26235.54,
+    "avg_days_since_contact": null,
+    "emails_logged_7d": null,
+    "outreach_touches_7d": null,
+    "untouched_14d": null,
+    "responsiveness": null
+  },
+  {
+    "snapshot_date": "2026-07-09",
+    "csam": "Reina Kurosawa",
+    "market": "Japan",
+    "critical_count": 1,
+    "at_risk_count": 0,
+    "watch_count": 2,
+    "arr_at_risk": 4025.62,
+    "avg_days_since_contact": null,
+    "emails_logged_7d": null,
+    "outreach_touches_7d": null,
+    "untouched_14d": null,
+    "responsiveness": null
+  },
+  {
+    "snapshot_date": "2026-07-09",
+    "csam": "Paolo Zafra",
+    "market": "AU/NZ",
+    "critical_count": 2,
+    "at_risk_count": 4,
+    "watch_count": 17,
+    "arr_at_risk": 38815.15,
+    "avg_days_since_contact": null,
+    "emails_logged_7d": null,
+    "outreach_touches_7d": null,
+    "untouched_14d": null,
+    "responsiveness": null
+  },
+  {
+    "snapshot_date": "2026-07-09",
+    "csam": "Maria Mazur",
+    "market": "DACH",
+    "critical_count": 1,
+    "at_risk_count": 1,
+    "watch_count": 6,
+    "arr_at_risk": 16534.38,
+    "avg_days_since_contact": null,
+    "emails_logged_7d": null,
+    "outreach_touches_7d": null,
+    "untouched_14d": null,
+    "responsiveness": null
+  },
+  {
+    "snapshot_date": "2026-07-09",
+    "csam": "Valentina Manta",
+    "market": "Romania",
+    "critical_count": 1,
+    "at_risk_count": 8,
+    "watch_count": 8,
+    "arr_at_risk": 61816.76,
+    "avg_days_since_contact": null,
+    "emails_logged_7d": null,
+    "outreach_touches_7d": null,
+    "untouched_14d": null,
+    "responsiveness": null
+  },
+  {
+    "snapshot_date": "2026-07-09",
+    "csam": "Piera Bellelli",
+    "market": "Italy/UK",
+    "critical_count": 0,
+    "at_risk_count": 5,
+    "watch_count": 13,
+    "arr_at_risk": 27937.13,
+    "avg_days_since_contact": null,
+    "emails_logged_7d": null,
+    "outreach_touches_7d": null,
+    "untouched_14d": null,
+    "responsiveness": null
+  }
+]
 
